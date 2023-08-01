@@ -1,28 +1,58 @@
 import psycopg2
 import json
 
-# Conecta com o banco
-conn = psycopg2.connect(
-    database="stg_hospital",
-    host="localhost",
-    user="postgres",
-    password="postgres",
-    port="5432"
-)
-cur = conn.cursor()
+def main():
+    # Simula operação POST de um API-REST
+    simulate_post("../data/tb_procedimento.json")
 
 
-# Oracle para postgres
-def get_postgres_type(type):
-    if type == "VARCHAR2":
-        return "VARCHAR"
-    if type == "NUMBER":
-        return "NUMERIC"
-    return type
+def simulate_post(path):
+    """
+    Simula operação POST de um API-REST
+    Arguments:
+        path: Path do arquivo que seria o body da operação
+    """
+    with open(path, 'r') as file:
+        reader = json.load(file)
+        _, file_name = path.rsplit("tb_")
+        table_name, _ = file_name.rsplit(".")
+        post({ "table_name": table_name, "data": reader["data"], "layout": reader["layout"] })
 
 
-# Criação da tabela a partir do layout
-def create_table(table_name, layout):
+def post(body):
+    # Conecta com o banco de dados
+    conn, cur = bd_connect()
+
+    create_table(cur.execute, body["table_name"], body["layout"])
+    insert_value(cur.execute, body["table_name"], body["data"])
+
+    # Persiste as mudanças
+    conn.commit()
+
+    # Fecha a conexão
+    cur.close()
+    conn.close()
+
+
+def bd_connect():
+    """
+    Conecta com o banco
+    """
+    conn = psycopg2.connect(database="stg_hospital", host="localhost", user="postgres", password="postgres", 
+                            port="5432")
+    cur = conn.cursor()
+
+    return (conn, cur)
+
+
+def create_table(execute, table_name, layout):
+    """
+    Cria tabela a partir do layout
+    Arguments:
+        execute: função de executar um comando no banco de dados
+        table_name: Nome da tabela
+        layout: layout
+    """
     layout_columns = []
     for item in layout:
         name = item['Coluna']
@@ -33,45 +63,43 @@ def create_table(table_name, layout):
    
     columns = ','.join(layout_columns)
     create_command = f"CREATE TABLE IF NOT EXISTS {table_name} ({columns})"
-    cur.execute(create_command)
+
+    execute(create_command)
 
 
-# Inseri os dados a partir do layout e arquivo com os dados
-def insert_value(table_name, data):
+def get_postgres_type(type):
+    """
+    Oracle type para postgres type
+    """
+    if type == "VARCHAR2":
+        return "VARCHAR"
+    if type == "NUMBER":
+        return "NUMERIC"
+    return type
+
+
+def insert_value(execute, table_name, data):
+    """
+    Inseri os dados
+    Arguments:
+        execute: função de executar um comando no banco de dados
+        table_name: Nome da tabela
+        data: dados
+    """
     for item in data:
         data_columns = item.keys()
         data_values = item.values()
 
+        # Lida com valores nulos e formatação
         insert_columns = list(map(lambda x: x if x is not None else 'NULL', data_columns))
         insert_values = list(map(lambda x: f"'{x}'" if x is not None else 'NULL', data_values))
-
+        
+        # Cria o comando de inserção
         columns = ','.join(insert_columns)
         values = ','.join(insert_values)
         insert_command = f"INSERT INTO {table_name} ({columns}) VALUES ({values});"
-        cur.execute(insert_command)
+
+        execute(insert_command)
 
 
-def post(body):
-    create_table(body["table_name"], body["layout"])
-    insert_value(body["table_name"], body["data"])
-
-
-# Simular operação POST de um API-REST
-def simulate_post(path):
-    with open(path, 'r') as file:
-        reader = json.load(file)
-
-        _, file_name = path.rsplit("tb_")
-        table_name, _ = file_name.rsplit(".")
-
-        post({ "table_name": table_name, "data": reader["data"], "layout": reader["layout"] })
-
-
-simulate_post("../data/tb_procedimento.json")
-
-# Persiste as mudanças
-conn.commit()
-
-# Fecha a conexão
-cur.close()
-conn.close()
+main()
