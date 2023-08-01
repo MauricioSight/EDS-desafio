@@ -49,9 +49,9 @@ $ docker compose up -d
  ```
  4. Agora é só clicar na opção `SQL command` na parte superior esquerda e rodas as consultar em SQL. 
 
-> **Nota**: Criei algumas consultas dentro o diretório `/setup` para faciliatar os testes dos problemas.
+> **Nota**: Criei algumas consultas dentro o diretório `/setup` para facilitar os testes dos problemas.
 
-### Scrpts em Python
+### Scripts em Python
 Para cada script em python eu crie um mock no diretório `/data` na root do projeto. Dessa forma, é possível ser testado apenas executando o arquivo.
 ```
 $ python3 problema<x: numero>.py
@@ -60,7 +60,7 @@ $ python3 problema<x: numero>.py
 ### Visualização
 Com relação à visualização, decidi utilizar o framework **streamlit**, por sua facilidade de implementação de componentes visuais e pela ótima integração com Python, o que possibilitou a utilização da biblioteca **Pandas**, super poderosa na manipulação de dados. Dessa forma, é possível trazer métricas e insights materializados em painéis de forma ágil, o que facilita o suporte a tomada de decisão.
 
-Para executar o problema 10 é simples é rapido.
+Para executar o problema 10 é simples é rápido.
 1. Instalar o framework streamlit com o comando:
 ```
 $ pip install streamlit
