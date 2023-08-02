@@ -89,7 +89,7 @@ Para executar o problema 10 é simples é rápido.
 $ pip install streamlit
 ```
 
-2. No terminal, executar o stremlit com o comando:
+2. No terminal, executar o streamlit com o comando:
 
 ```
 $ cd problems/
