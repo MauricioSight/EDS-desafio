@@ -110,6 +110,7 @@ Devido ao escopo de tempo limitado nem tudo é possível ser feito, porém, vou 
 - No problema 5 e 6: Lidar com falha de segurança cibernética, uma vez que é executada uma string criada diretamente lida de um arquivo (SQL Injection)
 - No problema 10: Utilizar os dados importados do SIGTAP
 - No problema 10: Configurar o deploy para que os analistas tenham acesso a página
+- No problema 10: Diferentes tipos de visualização, como: Quantidade de atendimento por dia da semana
 
 ## Contato
 
