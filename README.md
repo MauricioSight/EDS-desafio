@@ -73,7 +73,8 @@ $ docker compose up -d
 Para cada script em python eu crie um mock no diretório `/data` na root do projeto. Dessa forma, é possível ser testado apenas executando o arquivo.
 
 ```
-$ python3 problem_<x: numero>.py
+$ cd problems/
+$ python3 problem_<number[01, 02...]>.py
 ```
 
 ### Visualização
