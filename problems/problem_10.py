@@ -3,9 +3,9 @@ import pandas as pd
 import json
 
 # Carrega arquivo
-# with open("../data/problema10_random_dates_0.json", "r") as file:
-# with open("../data/problema10_random_dates_1.json", "r") as file:
-with open("../data/problema10_random_dates_2.json", "r") as file:
+# with open("../data/problem_10_random_dates_0.json", "r") as file:
+# with open("../data/problem_10_random_dates_1.json", "r") as file:
+with open("../data/problem_10_random_dates_2.json", "r") as file:
     reader = json.load(file)
     df = pd.DataFrame.from_dict({ "Date": reader })
 

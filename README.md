@@ -36,7 +36,7 @@ Aqui vai uma breve explicação sobre cada aquivo no desafio.
 /
 |-- assets/images		# Prints de exemplos de visualização
 |-- data/				# Exemplos de dados de entrada para os problemas
-|-- problemas/      	# Resposta para cada problema
+|-- problems/       	# Resposta para cada problema
 |-- README.md   		# Documentação do projeto (este arquivo)
 |-- setup/      		# Criação do contexto do problema
 |-- docker-compose.yml  # Configuração do docker
@@ -73,7 +73,7 @@ $ docker compose up -d
 Para cada script em python eu crie um mock no diretório `/data` na root do projeto. Dessa forma, é possível ser testado apenas executando o arquivo.
 
 ```
-$ python3 problema<x: numero>.py
+$ python3 problem_<x: numero>.py
 ```
 
 ### Visualização
@@ -91,13 +91,13 @@ $ pip install streamlit
 2. No terminal, executar o stremlit com o comando:
 
 ```
-$ cd problemas/
-$ streamlit run problema10.py
+$ cd problems/
+$ streamlit run problem_10.py
 ```
 
 Pronto! Uma janela é aberta com os painéis e a mágica acontece.
 
-![Exemplo de visualização](./assets/images/problema10_random_dates_0.png)
+![Exemplo de visualização](./assets/images/problem_10_random_dates_0.png)
 
 ## Próximos Passos
 
@@ -106,6 +106,7 @@ Devido ao escopo de tempo limitado nem tudo é possível ser feito, porém, vou 
 - No problema 5 e 6: Adicionar a funcionalidade de criar os relacionamentos do SIGTAP
 - No problema 5 e 6: Criar testes para verificar se os dados foram registrados da forma correta
 - No problema 5 e 6: Criar rotina para baixar automaticamente as competências do SIGTAP e atualizar o banco
+- No problema 5 e 6: Lidar com falha de segurança cibernética, uma vez que é executada uma string criada diretamente lida de um arquivo (SQL Injection)
 - No problema 10: Utilizar os dados importados do SIGTAP
 - No problema 10: Configurar o deploy para que os analistas tenham acesso a página
 
